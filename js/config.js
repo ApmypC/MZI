@@ -33,6 +33,21 @@ export const codes = {
     return true;
   }`,
 
+  task2: `
+  function eulerFunction(n) {
+    var result = n;
+  
+    for (let i = 2; i <= Math.sqrt(n); i++)
+      if (n % i == 0) {
+        while (n % i == 0) n /= i;
+        result -= result / i;
+      }
+  
+    if (n > 1) result -= result / n;
+  
+    return result;
+  }`,
+
   task6: `
   function continuedFraction(n, d) {
     let output = new Array();
