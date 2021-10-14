@@ -1,135 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Лаба</title>
+  </head>
 
-  <title>Лаба</title>
-</head>
+  <body>
+    <div id="app" class="row">
+      <div class="col s3">
+        <ul id="slide-out" class="sidenav sidenav-fixed">
+          <li>
+            <h4 class="user-view deep-purple-text">Задания</h4>
+          </li>
+          <li
+            v-for="page in pages"
+            :key="page.number"
+            v-on:click="activePage=page.number"
+          >
+            <a>{{ page.number }}. {{ page.name }}</a>
+          </li>
+        </ul>
+      </div>
 
-<body>
-  <div id="app" class="row">
-    <div class="col s3">
-      <ul id="slide-out" class="sidenav sidenav-fixed">
-        <li>
-          <h4 class="user-view deep-purple-text">Задания</h4>
-        </li>
-        <li v-for="page in pages" :key="page.number" v-on:click="activePage=page.number">
-          <a>{{ page.number }}. {{ page.name }}</a>
-        </li>
-      </ul>
-    </div>
+      <div class="col s9">
+        <div class="container">
+          <!-- Страница 1 задания -->
+          <div v-if="activePage == 1">
+            <h2>{{ pages[activePage - 1].name }}</h2>
 
-    <div class="col s9">
-      <div class="container">
-        <!-- Страница 1 задания -->
-        <div v-if="activePage == 1">
-          <h2>{{ pages[activePage - 1].name }}</h2>
+            Введите число: <input v-model="primeNumber.n" type="number" /><br />
 
-          Введите число: <input v-model="primeNumber.n" type="number"><br>
+            <button class="btn deep-purple" v-on:click="primeNumberButton">
+              Вычислить
+            </button>
+            <input v-model="primeNumber.output" />
 
-          <button class="btn deep-purple" v-on:click="primeNumberButton">Вычислить</button>
-          <input v-model="primeNumber.output">
-
-          <pre class="deep-purple lighten-5">
+            <pre class="deep-purple lighten-5">
             {{ codes.task1 }}
-          </pre>
-        </div>
+          </pre
+            >
+          </div>
 
-        <!-- Страница 2 задания -->
-        <div v-if="activePage == 2">
-          <h2>{{ pages[activePage - 1].name }}</h2>
+          <!-- Страница 2 задания -->
+          <div v-if="activePage == 2">
+            <h2>{{ pages[activePage - 1].name }}</h2>
 
-          Введите число: <input v-model="primeNumber.n" type="number"><br>
+            Введите число:
+            <input v-model="eulerFunction.n" type="number" /><br />
 
-          <button class="btn deep-purple" v-on:click="primeNumberButton">Вычислить</button>
-          <input v-model="primeNumber.output">
+            <button class="btn deep-purple" v-on:click="eulerFunctionButton">
+              Вычислить
+            </button>
+            <input v-model="eulerFunction.output" />
 
-          <pre class="deep-purple lighten-5">
+            <pre class="deep-purple lighten-5">
+            {{ codes.task2 }}
+          </pre
+            >
+          </div>
+
+          <!-- Страница 3 задания -->
+          <div v-if="activePage == 3">
+            <h2>{{ pages[activePage - 1].name }}</h2>
+
+            <code class="deep-purple lighten-5"> ax = b (mod m) </code> <br /><br />
+            Введите a: <input v-model="congruence.a" type="number" /><br />
+            Введите b: <input v-model="congruence.b" type="number" /><br />
+            Введите m: <input v-model="congruence.m" type="number" /><br />
+
+            <button class="btn deep-purple" v-on:click="congruenceButton">
+              Вычислить
+            </button>
+            <input v-model="congruence.output" />
+
+            <pre class="deep-purple lighten-5">
             {{ codes.task1 }}
-          </pre>
-        </div>
+          </pre
+            >
+          </div>
 
-        <!-- Страница 3 задания -->
-        <div v-if="activePage == 3">
-          <h2>{{ pages[activePage - 1].name }}</h2>
+          <!-- Страница 4 задания -->
+          <div v-if="activePage == 4">
+            <h2>{{ pages[activePage - 1].name }}</h2>
 
-          Введите число: <input v-model="primeNumber.n" type="number"><br>
+            Введите число: <input v-model="primeNumber.n" type="number" /><br />
 
-          <button class="btn deep-purple" v-on:click="primeNumberButton">Вычислить</button>
-          <input v-model="primeNumber.output">
+            <button class="btn deep-purple" v-on:click="primeNumberButton">
+              Вычислить
+            </button>
+            <input v-model="primeNumber.output" />
 
-          <pre class="deep-purple lighten-5">
+            <pre class="deep-purple lighten-5">
             {{ codes.task1 }}
-          </pre>
-        </div>
+          </pre
+            >
+          </div>
 
-        <!-- Страница 4 задания -->
-        <div v-if="activePage == 4">
-          <h2>{{ pages[activePage - 1].name }}</h2>
+          <!-- Страница 5 задания -->
+          <div v-if="activePage == 5">
+            <h2>{{ pages[activePage - 1].name }}</h2>
 
-          Введите число: <input v-model="primeNumber.n" type="number"><br>
+            Введите число: <input v-model="primeNumber.n" type="number" /><br />
 
-          <button class="btn deep-purple" v-on:click="primeNumberButton">Вычислить</button>
-          <input v-model="primeNumber.output">
+            <button class="btn deep-purple" v-on:click="primeNumberButton">
+              Вычислить
+            </button>
+            <input v-model="primeNumber.output" />
 
-          <pre class="deep-purple lighten-5">
+            <pre class="deep-purple lighten-5">
             {{ codes.task1 }}
-          </pre>
-        </div>
+          </pre
+            >
+          </div>
 
-        <!-- Страница 5 задания -->
-        <div v-if="activePage == 5">
-          <h2>{{ pages[activePage - 1].name }}</h2>
+          <!-- Страница 6 задания -->
+          <div v-if="activePage == 6">
+            <h2>{{ pages[activePage - 1].name }}</h2>
 
-          Введите число: <input v-model="primeNumber.n" type="number"><br>
+            Введите числитель:
+            <input v-model="continuedFraction.n" type="number" /><br />
+            Введите знаменатель:
+            <input v-model="continuedFraction.d" type="number" /><br />
 
-          <button class="btn deep-purple" v-on:click="primeNumberButton">Вычислить</button>
-          <input v-model="primeNumber.output">
+            <button
+              class="btn deep-purple"
+              v-on:click="continuedFractionButton"
+            >
+              Вычислить
+            </button>
+            <input v-model="continuedFraction.output" />
 
-          <pre class="deep-purple lighten-5">
-            {{ codes.task1 }}
-          </pre>
-        </div>
-
-        <!-- Страница 6 задания -->
-        <div v-if="activePage == 6">
-          <h2>{{ pages[activePage - 1].name }}</h2>
-
-          Введите числитель: <input v-model="continuedFraction.n" type="number"><br>
-          Введите знаменатель: <input v-model="continuedFraction.d" type="number"><br>
-
-          <button class="btn deep-purple" v-on:click="continuedFractionButton">Вычислить</button>
-          <input v-model="continuedFraction.output">
-
-          <pre class="deep-purple lighten-5">
+            <pre class="deep-purple lighten-5">
             {{ codes.task6 }}
-          </pre>
-        </div>
+          </pre
+            >
+          </div>
 
-        <!-- Страница 6 задания -->
-        <div v-if="activePage == 6">
-          <h2>{{ pages[activePage - 1].name }}</h2>
+          <!-- Страница 6 задания -->
+          <div v-if="activePage == 6">
+            <h2>{{ pages[activePage - 1].name }}</h2>
 
-          Введите цепную дробь: <input v-model="convergents.f"><br>
-          Введите коэффициент: <input v-model="convergents.k" type="number"><br>
+            Введите цепную дробь: <input v-model="convergents.f" /><br />
+            Введите коэффициент:
+            <input v-model="convergents.k" type="number" /><br />
 
-          <button class="btn deep-purple" v-on:click="convergentsButton">Вычислить</button>
-          <input v-model="convergents.output">
+            <button class="btn deep-purple" v-on:click="convergentsButton">
+              Вычислить
+            </button>
+            <input v-model="convergents.output" />
 
-          <pre class="deep-purple lighten-5">
+            <pre class="deep-purple lighten-5">
             {{ codes.task6_2 }}
-          </pre>
+          </pre
+            >
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script type="module" src="js/app.js"></script>
-</body>
-
+    <script type="module" src="js/app.js"></script>
+  </body>
 </html>
